@@ -15,7 +15,15 @@ class ApiController extends Controller
      */
     public function index()
     {
-        return Product::all();
+        $result = Product::all();
+
+        if(isset($result[0])){
+            return $result;
+        }else{
+            return response([
+                       'message' =>'Opps. Stock out all products'
+            ],404);
+        }
     }
 
     /**
@@ -26,12 +34,6 @@ class ApiController extends Controller
      */
     public function store(Request $request)
     {
-        /* return Product::create([
-            'name' => 'Product One',
-            'slug' => 'product-one',
-            'discription' => 'this is product one',
-            'price' => '99.36',
-        ]); */
 
         $request->validate([
             'name' => 'required',
@@ -53,10 +55,10 @@ class ApiController extends Controller
 
         $result = Product::where('id', $id)->first();
         if($result){
-            return Product::find($id);
+            return $result;
         }else{
             return response([
-                'message' =>'No product'
+                'message' =>'No product like this'
             ],404);
         }
     }
@@ -90,8 +92,15 @@ class ApiController extends Controller
 
     public function search($name)
     {
-       return Product::where('name','like','%'.$name.'%')->get();
-    }
+       $result = Product::where('name','like','%'.$name.'%')->get();
 
+       if(isset($result[0])){
+        return $result;
+    }else{
+        return response([
+                   'message' =>'No products found'
+        ],404);
+    }
+    }
 
 }
