@@ -11,7 +11,7 @@ class UserController extends Controller
     public function register(Request $request){
         $fields = $request->validate([
             'name'  => 'required|string',
-            'email'  => 'required|string|unique:users,email',
+            'email'  => 'required|email|unique:users,email',
             'password' => 'required|string'
         ]);
 
@@ -22,8 +22,6 @@ class UserController extends Controller
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-
-
 
         $response = [
             'user' =>$user,
@@ -36,7 +34,7 @@ class UserController extends Controller
 
     public function login(Request $request){
         $fields = $request->validate([
-            'email'  => 'required|string',
+            'email'  => 'required|email',
             'password' => 'required|string'
         ]);
 
@@ -44,13 +42,12 @@ class UserController extends Controller
 
        if(!$user || !Hash::check($fields['password'], $user->password)){
            return response([
-               'message' =>'email or password wrong'
+               'message' =>'Credentials not match'
            ],401);
        }
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
 
-
+        $token = $user->createToken('api_token')->plainTextToken;
 
         $response = [
             'user' =>$user,
@@ -61,11 +58,11 @@ class UserController extends Controller
 
     }
 
-    public function logout(Request $request){
+        public function logout(){
         auth()->user()->tokens()->delete();
 
         return [
-            'message' =>'you are logOut'
+            'message' =>'You have successfully logged out and the token was successfully deleted'
         ];
 
     }

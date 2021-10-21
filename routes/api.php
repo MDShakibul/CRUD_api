@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
+/*Route::get('/show/{id}', [ApiController::class, 'show']);
+Route::get('/product_show/{id}', [ApiController::class, 'show']); */
+//Route::resource('products', ApiController::class);
 Route::get('/home', [ApiController::class, 'index']);
-Route::get('/show/{id}', [ApiController::class, 'show']);
-Route::get('/product_show/{id}', [ApiController::class, 'show']);
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-//Route::resource('products', ApiController::class);
 Route::get('products/search/{name}', [ApiController::class, 'search']);
 
 
@@ -34,6 +34,9 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/product_create', [ApiController::class, 'store']);
     Route::put('/product_update/{id}', [ApiController::class, 'update']);
     Route::delete('/product_delete/{id}', [ApiController::class, 'destroy']);
-    Route::post('/logout', [UserController::class, 'logout']);
+    Route::get('/logout', [UserController::class, 'logout']);
+
+
+    //new test route
 
 });
