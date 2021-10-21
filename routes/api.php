@@ -35,8 +35,4 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::put('/product_update/{id}', [ApiController::class, 'update']);
     Route::delete('/product_delete/{id}', [ApiController::class, 'destroy']);
     Route::get('/logout', [UserController::class, 'logout']);
-
-
-    //new test route
-
 });
