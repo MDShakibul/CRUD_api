@@ -27,7 +27,11 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('products/search/{name}', [ApiController::class, 'search']);
 
-
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/product_show/{id}', [ApiController::class, 'show']);
+    Route::post('/product_create', [ApiController::class, 'store']);
+    Route::put('/product_update/{id}', [ApiController::class, 'update']);
+    Route::delete('/product_delete/{id}', [ApiController::class, 'destroy']);
+    Route::get('/logout', [UserController::class, 'logout']);
     //new test route
-
 });
