@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\UserFormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+/* Route::get('/product', [ApiController::class, 'index']); */
+
+/* Route::get('/product/{id}', [ApiController::class, 'show']);
+ */
